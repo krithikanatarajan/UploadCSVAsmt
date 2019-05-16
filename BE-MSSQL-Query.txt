@@ -1,0 +1,51 @@
+CREATE TABLE tblTransaction
+(
+TransactionReference int NOT NULL,
+AccountNo varchar(18) NOT NULL,
+StartBalance decimal(18,2) NOT NULL,
+Mutation decimal(18,2) NOT NULL, 
+Description varchar(2500) NULL,
+EndBalance  decimal(18,2) NOT NULL
+)
+
+
+
+INSERT INTO tblTransaction(TransactionReference,AccountNo,Description,StartBalance,Mutation,EndBalance)
+Select 194261,'NL91RABO0315273637','Clothes from Jan Bakker',21.6,-41.83,-20.23
+Union
+Select 112806,'NL27SNSB0917829871','Clothes for Willem Dekker',91.23,15.57,106.8
+Union
+Select 12806,'NL27SNSB0917829871','Clothes for Willem Dekker',91.23,15.57,106.8				
+Union
+Select 183049,'NL69ABNA0433647324','Clothes for Jan King',86.66,44.5,131.16
+
+Union
+Select 183356,'NL74ABNA0248990274','Subscription for Peter de Vries',92.98,-46.65,46.33
+Union
+Select 112806,'NL69ABNA0433647324','Clothes for Richard de Vries',90.83,-10.91,79.92
+Union 
+Select 112806,'NL93ABNA0585619023','Tickets from Richard Bakker',102.12,45.87,147.99
+Union
+Select 139524,'NL43AEGO0773393871','Flowers from Jan Bakker',	99.44,	41.23,	140.67
+Union
+Select 
+179430,	'NL93ABNA0585619023','Clothes for Vincent Bakker',23.96,-27.43,-3.47
+Union
+Select 141223,'NL93ABNA0585619023','Clothes from Erik Bakker',94.25,41.6,135.85
+Union
+Select 195446,'NL74ABNA0248990274','Flowers for Willem Dekker',26.32,48.98,75.3
+
+
+
+
+
+
+Select 
+TransactionReference,
+AccountNo,
+Description,
+StartBalance,
+Mutation, 
+EndBalance,
+CASE WHEN CAST(round(StartBalance+Mutation,2) As decimal(18,2))=EndBalance Then 'Valid' Else 'InValid' End As isValidEndBalance
+FROM tblTransaction
